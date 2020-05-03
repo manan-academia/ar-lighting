@@ -30,38 +30,6 @@ import java.util.*
 val screenshotHandler =
   Handler(HandlerThread("screenshot").also { it.start() }.looper)
 
-fun Vector3.format(context: Context) = context.getString(
-  R.string.format_vector3,
-  x,
-  y,
-  z
-)
-
-fun Quaternion.format(context: Context) = context.getString(
-  R.string.format_quaternion,
-  x,
-  y,
-  z,
-  w
-)
-
-fun Session.format(context: Context) = context.getString(
-  R.string.format_session,
-  allAnchors.count(),
-  getAllTrackables(Plane::class.java).count(),
-  getAllTrackables(Point::class.java).count()
-)
-
-fun CameraConfig.format(context: Context) = context.getString(
-  R.string.format_camera_config,
-  textureSize,
-  fpsRange,
-  when (depthSensorUsage) {
-    REQUIRE_AND_USE -> true
-    DO_NOT_USE, null -> false
-  }
-)
-
 class SimpleSeekBarChangeListener(val block: (Int) -> Unit) : SeekBar.OnSeekBarChangeListener {
   override fun onStartTrackingTouch(seekBar: SeekBar?) {}
   override fun onStopTrackingTouch(seekBar: SeekBar?) {}
