@@ -22,7 +22,7 @@
       app:layout_constraintBottom_toTopOf="@+id/nodeColorValue"
       app:layout_constraintTop_toTopOf="parent" />
 
-  <fr.smarquis.ar_toolbox.ColorSeekBar
+  <com.wave.arlighting.ColorSeekBar
       android:id="@+id/nodeColorValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

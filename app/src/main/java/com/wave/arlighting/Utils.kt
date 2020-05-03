@@ -30,7 +30,8 @@ class Utils(
         color
       )
     ).thenAccept { material ->
-      material.setFloat(MATERIAL_METALLIC,
+      material.setFloat(
+        MATERIAL_METALLIC,
         0.8F
       )
       addNodeToScene(

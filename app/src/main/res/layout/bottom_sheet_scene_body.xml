@@ -158,7 +158,7 @@
       app:layout_constraintBottom_toTopOf="@+id/colorValue"
       app:layout_constraintTop_toBottomOf="@+id/modelLink" />
 
-  <fr.smarquis.ar_toolbox.ColorSeekBar
+  <com.wave.arlighting.ColorSeekBar
       android:id="@+id/colorValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
