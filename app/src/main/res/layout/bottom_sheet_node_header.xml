@@ -42,7 +42,7 @@
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         tools:text="Sphere #1" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/nodeDistance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,11 +55,11 @@
         android:lines="1"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
         tools:ignore="RtlHardcoded"
-        tools:text="1.23 m" />
+        tools:text="1.23 m" />-->
 
   </LinearLayout>
 
-  <ImageView
+  <!--<ImageView
       android:id="@+id/nodePlayPause"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -67,9 +67,9 @@
       android:padding="@dimen/material_unit_1"
       android:tint="@color/ic_tint"
       app:srcCompat="@drawable/ic_play_pause"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription" />-->
 
-  <ImageView
+  <!--<ImageView
       android:id="@+id/nodeCopy"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -77,7 +77,7 @@
       android:padding="@dimen/material_unit_1"
       android:tint="@color/ic_tint"
       app:srcCompat="@drawable/ic_copy_node"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription" />-->
 
   <ImageView
       android:id="@+id/nodeDelete"

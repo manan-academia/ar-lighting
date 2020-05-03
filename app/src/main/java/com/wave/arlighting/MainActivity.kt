@@ -1,15 +1,8 @@
 package com.wave.arlighting
 
-import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.text.Editable
-import android.text.InputType
-import android.text.TextWatcher
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.GONE
@@ -17,19 +10,11 @@ import android.view.View.VISIBLE
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.view.ContextThemeWrapper
-import androidx.core.net.toUri
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.ar.core.*
 import com.google.ar.core.TrackingFailureReason.*
 import com.google.ar.core.TrackingState.*
 import com.google.ar.sceneform.ArSceneView
-import com.google.ar.sceneform.HitTestResult
-import com.google.ar.sceneform.rendering.PlaneRenderer
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet_node.*
 import kotlinx.android.synthetic.main.bottom_sheet_node_body.*
 import kotlinx.android.synthetic.main.bottom_sheet_node_header.*
@@ -49,8 +34,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
   }
   private val model: SceneViewModel by viewModels()
   private val settings by lazy { Settings.instance(this) }
-
-  //  private var drawing: Drawing? = null
   private val setOfMaterialViews by lazy {
     setOf(
       nodeColorValue,
@@ -61,14 +44,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       nodeRoughnessLabel,
       nodeReflectanceValue,
       nodeReflectanceLabel
-    )
-  }
-  private val setOfCloudAnchorViews by lazy {
-    setOf(
-      nodeCloudAnchorStateLabel,
-      nodeCloudAnchorStateValue,
-      nodeCloudAnchorIdLabel,
-      nodeCloudAnchorIdValue
     )
   }
 
@@ -102,14 +77,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
     planeFindingMode = Config.PlaneFindingMode.HORIZONTAL_AND_VERTICAL
     updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
     cloudAnchorMode = Config.CloudAnchorMode.ENABLED
-    //    augmentedImageDatabase = AugmentedImageDatabase(session).apply {
-    //      Augmented.target(this@MainActivity)?.let {
-    //        addImage(
-    //          "augmented",
-    //          it
-    //        )
-    //      }
-    //    }
     augmentedFaceMode = Config.AugmentedFaceMode.DISABLED
     focusMode = Config.FocusMode.AUTO
   }
@@ -119,7 +86,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       state = STATE_EXPANDED,
       isHideable = false
     )
-    //    cameraValue.text = arSceneView.session?.cameraConfig?.format(this)
   }
 
   private fun initWithIntent(intent: Intent?) {
@@ -130,7 +96,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
         it.toString(),
         Toast.LENGTH_SHORT
       ).show()
-      //      selectExternalModel(it.toString())
       this.intent = null
     }
   }
@@ -153,7 +118,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       menu = R.menu.menu_scene,
       onClick = {
         when (it.itemId) {
-          //          R.id.menu_item_resolve_cloud_anchor -> promptCloudAnchorId()
           R.id.menu_item_clean_up_scene -> arSceneView.scene.callOnHierarchy { node -> (node as? Nodes)?.detach() }
           R.id.menu_item_sunlight -> settings.sunlight.toggle(
             it,
@@ -163,25 +127,8 @@ class MainActivity : ARActivity(R.layout.activity_main) {
             it,
             arSceneView
           )
-          //          R.id.menu_item_plane_renderer -> settings.planes.toggle(
-          //            it,
-          //            arSceneView
-          //          )
-          //          R.id.menu_item_selection_visualizer -> settings.selection.toggle(
-          //            it,
-          //            coordinator.selectionVisualizer
-          //          )
-          //          R.id.menu_item_reticle -> settings.reticle.toggle(
-          //            it,
-          //            arSceneView
-          //          )
-          //          R.id.menu_item_point_cloud -> settings.pointCloud.toggle(
-          //            it,
-          //            arSceneView
-          //          )
         }
         when (it.itemId) {
-          //          R.id.menu_item_sunlight, R.id.menu_item_shadows, R.id.menu_item_plane_renderer, R.id.menu_item_selection_visualizer, R.id.menu_item_reticle, R.id.menu_item_point_cloud -> false
           R.id.menu_item_sunlight, R.id.menu_item_shadows -> false
           else -> true
         }
@@ -191,10 +138,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
           arSceneView.scene.findInHierarchy { it is Nodes } != null
         settings.sunlight.applyTo(findItem(R.id.menu_item_sunlight))
         settings.shadows.applyTo(findItem(R.id.menu_item_shadows))
-        //        settings.planes.applyTo(findItem(R.id.menu_item_plane_renderer))
-        //        settings.selection.applyTo(findItem(R.id.menu_item_selection_visualizer))
-        //        settings.reticle.applyTo(findItem(R.id.menu_item_reticle))
-        //        settings.pointCloud.applyTo(findItem(R.id.menu_item_point_cloud))
       })
 
     model.selection.observe(this,
@@ -202,39 +145,13 @@ class MainActivity : ARActivity(R.layout.activity_main) {
         modelSphere.isSelected = it == Sphere::class
         modelCylinder.isSelected = it == Cylinder::class
         modelCube.isSelected = it == Cube::class
-        //        modelView.isSelected = it == Layout::class
         modelAndy.isSelected = it == Andy::class
-        //        modelVideo.isSelected = it == Video::class
-        //        modelDrawing.isSelected = it == Drawing::class
-        //        modelLink.isSelected = it == Link::class
-        //        modelCloudAnchor.isSelected = it == CloudAnchor::class
-        //        sceneAdd.requestDisallowInterceptTouchEvent = it == Drawing::class
       })
 
     modelSphere.setOnClickListener { model.selection.value = Sphere::class }
     modelCylinder.setOnClickListener { model.selection.value = Cylinder::class }
     modelCube.setOnClickListener { model.selection.value = Cube::class }
-    //    modelView.setOnClickListener { model.selection.value = Layout::class }
-    //    modelDrawing.setOnClickListener { model.selection.value = Drawing::class }
     modelAndy.setOnClickListener { model.selection.value = Andy::class }
-    //    modelVideo.setOnClickListener { model.selection.value = Video::class }
-    /*modelLink.setOnClickListener {
-      promptExternalModel()
-    }
-    modelCloudAnchor.setOnClickListener {
-      //      model.selection.value = CloudAnchor::class
-    }*/
-    //    modelCloudAnchor.setOnLongClickListener { promptCloudAnchorId().let { true } }
-    /*colorValue.setOnColorChangeListener { color ->
-      arSceneView.planeRenderer.material?.thenAccept {
-        it.setFloat3(
-          PlaneRenderer.MATERIAL_COLOR,
-          color.toArColor()
-        )
-      }
-      //      settings.pointCloud.updateMaterial(arSceneView) { this.color = color }
-    }
-    colorValue.post { colorValue.setColor(MaterialProperties.DEFAULT.color) }*/
   }
 
   private fun initNodeBottomSheet() {
@@ -260,8 +177,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       state = STATE_HIDDEN
     }
     nodeHeader.setOnClickListener { coordinator.selectNode(null) }
-    //    nodeCopy.setOnClickListener { (coordinator.focusedNode as? CloudAnchor)?.copyToClipboard(this) }
-    //    nodePlayPause.setOnClickListener { (coordinator.focusedNode as? Video)?.toggle() }
     nodeDelete.setOnClickListener { coordinator.focusedNode?.detach() }
 
     nodeColorValue.setOnColorChangeListener {
@@ -305,145 +220,12 @@ class MainActivity : ARActivity(R.layout.activity_main) {
         hitTestResult,
         motionEvent
       )
-      /*if (shouldHandleDrawing(
-          motionEvent,
-          hitTestResult
-        )
-      ) {
-        val x = motionEvent.x
-        val y = motionEvent.y
-        when (motionEvent.action) {
-          MotionEvent.ACTION_DOWN -> drawing = Drawing.create(
-            x,
-            y,
-            true,
-            materialProperties(),
-            arSceneView,
-            coordinator,
-            settings
-          )
-          MotionEvent.ACTION_MOVE -> drawing?.extend(
-            x,
-            y
-          )
-          MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> drawing =
-            drawing?.deleteIfEmpty().let { null }
-        }
-      }*/
     }
 
     settings.sunlight.applyTo(arSceneView)
     settings.shadows.applyTo(arSceneView)
-    /*settings.planes.applyTo(arSceneView)
-    settings.selection.applyTo(coordinator.selectionVisualizer)
-    settings.reticle.initAndApplyTo(arSceneView)
-    settings.pointCloud.initAndApplyTo(arSceneView)*/
   }
-  //  private fun shouldHandleDrawing(
-  //    motionEvent: MotionEvent? = null,
-  //    hitTestResult: HitTestResult? = null
-  //  ): Boolean {
-  //    if (model.selection.value != Drawing::class) return false
-  //    if (coordinator.selectedNode?.isTransforming == true) return false
-  //    if (arSceneView.arFrame?.camera?.trackingState != TRACKING) return false
-  //    if (motionEvent?.action == MotionEvent.ACTION_DOWN && hitTestResult?.node != null) return false
-  //    return true
-  //  }
-  /*private fun promptExternalModel() {
-    AlertDialog.Builder(
-      ContextThemeWrapper(
-        this,
-        R.style.AlertDialog
-      )
-    ).setItems(R.array.models_labels) { _, i ->
-      if (i == 0) {
-        promptExternalModelUri()
-      } else {
-        //        selectExternalModel(resources.getStringArray(R.array.models_uris)[i])
-      }
-    }.create().show()
-  }*/
-  /*private fun promptExternalModelUri() {
-    val context = ContextThemeWrapper(
-      this,
-      R.style.AlertDialog
-    )
-    @SuppressLint("InflateParams") val view: View =
-      LayoutInflater.from(context).inflate(
-        R.layout.dialog_input,
-        null
-      )
-    view.findViewById<TextInputLayout>(R.id.dialog_input_layout).hint =
-      getText(R.string.model_link_custom_hint)
-    val input = view.findViewById<TextInputEditText>(R.id.dialog_input_value)
-    input.inputType = InputType.TYPE_TEXT_VARIATION_URI
-    input.setText(model.externalModelUri.value.takeUnless { it in resources.getStringArray(R.array.models_uris) })
-    AlertDialog.Builder(context).setView(view)
-      //      .setPositiveButton(android.R.string.ok) { _, _ -> selectExternalModel(input.text.toString()) }
-      .setNegativeButton(android.R.string.cancel) { _, _ -> }
-      .setCancelable(false).show()
-    input.requestFocus()
-  }*/
-  //  private fun selectExternalModel(value: String) {
-  //    model.externalModelUri.value = value
-  //    model.selection.value = Link::class
-  //    Link.warmup(
-  //      this,
-  //      value.toUri()
-  //    )
-  //  }
-  //  private fun promptCloudAnchorId() {
-  //    val context = ContextThemeWrapper(
-  //      this,
-  //      R.style.AlertDialog
-  //    )
-  //    @SuppressLint("InflateParams") val view: View =
-  //      LayoutInflater.from(context).inflate(
-  //        R.layout.dialog_input,
-  //        null
-  //      )
-  //    view.findViewById<TextInputLayout>(R.id.dialog_input_layout).hint =
-  //      getText(R.string.cloud_anchor_id_hint)
-  //    val input = view.findViewById<TextInputEditText>(R.id.dialog_input_value)
-  //    input.inputType = InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-  //    val dialog = AlertDialog.Builder(context).setView(view)
-  //      .setPositiveButton(R.string.cloud_anchor_id_resolve) { _, _ ->
-  //        CloudAnchor.resolve(
-  //          input.text.toString(),
-  //          this,
-  //          arSceneView,
-  //          coordinator,
-  //          settings
-  //        )?.also {
-  //          coordinator.focusNode(it)
-  //        }
-  //      }.setNegativeButton(android.R.string.cancel) { _, _ -> }
-  //      .setCancelable(false).show()
-  //    input.addTextChangedListener(object : TextWatcher {
-  //      override fun afterTextChanged(s: Editable?) {
-  //        dialog.getButton(DialogInterface.BUTTON_POSITIVE)?.isEnabled =
-  //          !s.isNullOrBlank()
-  //      }
-  //
-  //      override fun beforeTextChanged(
-  //        s: CharSequence?,
-  //        start: Int,
-  //        count: Int,
-  //        after: Int
-  //      ) {
-  //      }
-  //
-  //      override fun onTextChanged(
-  //        s: CharSequence?,
-  //        start: Int,
-  //        before: Int,
-  //        count: Int
-  //      ) {
-  //      }
-  //    })
-  //    input.text = input.text
-  //    input.requestFocus()
-  //  }
+
   private fun onArTap(motionEvent: MotionEvent) {
     val frame = arSceneView.arFrame ?: return
     if (frame.camera.trackingState != TRACKING) {
@@ -485,33 +267,11 @@ class MainActivity : ARActivity(R.layout.activity_main) {
         coordinator,
         settings
       )
-      //      Layout::class -> Layout(
-      //        this,
-      //        coordinator,
-      //        settings
-      //      )
       Andy::class -> Andy(
         this,
         coordinator,
         settings
       )
-      //      Video::class -> Video(
-      //        this,
-      //        coordinator,
-      //        settings
-      //      )
-      //      Link::class -> Link(
-      //        this,
-      //        model.externalModelUri.value.orEmpty().toUri(),
-      //        coordinator,
-      //        settings
-      //      )
-      //      CloudAnchor::class -> CloudAnchor(
-      //        this,
-      //        arSceneView.session ?: return,
-      //        coordinator,
-      //        settings
-      //      )
       else -> return
     }.attach(
       anchor(),
@@ -535,8 +295,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       reason
     )
     onArUpdateBottomSheet(state)
-    //    onArUpdateDrawing()
-    //    onArUpdateAugmentedImages()
   }
 
   private fun onArUpdateStatusText(
@@ -585,76 +343,25 @@ class MainActivity : ARActivity(R.layout.activity_main) {
     when (sceneBottomSheet.behavior().state) {
       STATE_HIDDEN, STATE_COLLAPSED -> Unit
       else -> {
-        arSceneView.arFrame?.camera?.pose.let {
-          //          poseTranslationValue.text = it.formatTranslation(this)
-          //          poseRotationValue.text = it.formatRotation(this)
-        }
-        //        sceneValue.text = arSceneView.session?.format(this)
+        arSceneView.arFrame?.camera?.pose.let {}
       }
     }
   }
 
-  private fun onArUpdateDrawing() {
-    /*if (shouldHandleDrawing()) {
-      val x = arSceneView.width / 2F
-      val y = arSceneView.height / 2F
-      val pressed = sceneAdd.isPressed
-      when {
-        pressed && drawing == null -> drawing = Drawing.create(
-          x,
-          y,
-          false,
-          materialProperties(),
-          arSceneView,
-          coordinator,
-          settings
-        )
-        pressed && drawing?.isFromTouch == false -> drawing?.extend(
-          x,
-          y
-        )
-        !pressed && drawing?.isFromTouch == false -> drawing =
-          drawing?.deleteIfEmpty().let { null }
-        else -> Unit
-      }
-    }*/
-  }
-
-  //  private fun onArUpdateAugmentedImages() {
-  //    arSceneView.arFrame?.getUpdatedTrackables(AugmentedImage::class.java)
-  //      ?.forEach {
-  //        Augmented.update(
-  //          this,
-  //          it,
-  //          coordinator,
-  //          settings
-  //        )?.apply {
-  //          attach(
-  //            it.createAnchor(it.centerPose),
-  //            arSceneView.scene
-  //          )
-  //        }
-  //      }
-  //  }
   private fun onNodeUpdate(node: Nodes) {
     when {
       node != coordinator.selectedNode || node != coordinator.focusedNode || nodeBottomSheet.behavior().state == STATE_HIDDEN -> Unit
       else -> {
         nodeStatus.setImageResource(node.statusIcon())
-        nodeDistance.text = formatDistance(
-          this,
-          arSceneView.arFrame?.camera?.pose,
-          node.worldPosition
-        )
-        //        nodeCopy.isEnabled = (node as? CloudAnchor)?.id() != null
-        //        nodePlayPause.isActivated = (node as? Video)?.isPlaying() == true
+//        nodeDistance.text = formatDistance(
+//          this,
+//          arSceneView.arFrame?.camera?.pose,
+//          node.worldPosition
+//        )
         nodeDelete.isEnabled = !node.isTransforming
-        nodePositionValue.text = node.worldPosition.format(this)
+        /*nodePositionValue.text = node.worldPosition.format(this)
         nodeRotationValue.text = node.worldRotation.format(this)
-        nodeScaleValue.text = node.worldScale.format(this)
-        /*nodeCloudAnchorStateValue.text = (node as? CloudAnchor)?.state()?.name
-        nodeCloudAnchorIdValue.text =
-          (node as? CloudAnchor)?.let { it.id() ?: "…" }*/
+        nodeScaleValue.text = node.worldScale.format(this)*/
       }
     }
   }
@@ -680,8 +387,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       }
       coordinator.selectedNode -> {
         nodeName.text = node.name
-        //        nodeCopy.visibility = if (node is CloudAnchor) VISIBLE else GONE
-        //        nodePlayPause.visibility = if (node is Video) VISIBLE else GONE
         (node as? MaterialNode)?.properties?.run {
           nodeColorValue.setColor(color)
           nodeMetallicValue.progress = metallic
@@ -690,10 +395,6 @@ class MainActivity : ARActivity(R.layout.activity_main) {
         }
         val materialVisibility = if (node is MaterialNode) VISIBLE else GONE
         setOfMaterialViews.forEach { it.visibility = materialVisibility }
-        /*val cloudAnchorVisibility = if (node is CloudAnchor) VISIBLE else GONE
-        setOfCloudAnchorViews.forEach {
-          it.visibility = cloudAnchorVisibility
-        }*/
         nodeSheetBehavior.state = STATE_EXPANDED
         if (sceneBehavior.state != STATE_COLLAPSED) {
           sceneBehavior.state = STATE_COLLAPSED

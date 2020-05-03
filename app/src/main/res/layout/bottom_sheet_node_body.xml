@@ -88,11 +88,10 @@
       android:layout_height="wrap_content"
       android:clickable="true"
       android:max="100"
-      app:layout_constraintBottom_toTopOf="@+id/nodePositionLabel"
       app:layout_constraintTop_toBottomOf="@+id/nodeReflectanceLabel"
       tools:progress="50" />
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeCloudAnchorIdLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -100,17 +99,17 @@
       android:text="@string/entry_cloud_anchor_id_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/nodeCloudAnchorIdValue"
-      app:layout_constraintTop_toBottomOf="@+id/nodeReflectanceValue" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeReflectanceValue" />-->
 
-  <TextView
+ <!-- <TextView
       android:id="@+id/nodeCloudAnchorIdValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toTopOf="@+id/nodeCloudAnchorStateLabel"
-      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorIdLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorIdLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeCloudAnchorStateLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -118,17 +117,17 @@
       android:text="@string/entry_cloud_anchor_state_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/nodeCloudAnchorStateValue"
-      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorIdValue" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorIdValue" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeCloudAnchorStateValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toTopOf="@+id/nodePositionLabel"
-      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorStateLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorStateLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodePositionLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -136,17 +135,17 @@
       android:text="@string/entry_position_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/nodePositionValue"
-      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorStateValue" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeCloudAnchorStateValue" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodePositionValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toTopOf="@+id/nodeRotationLabel"
-      app:layout_constraintTop_toBottomOf="@+id/nodePositionLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/nodePositionLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeRotationLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -154,17 +153,17 @@
       android:text="@string/entry_rotation_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/nodeRotationValue"
-      app:layout_constraintTop_toBottomOf="@+id/nodePositionValue" />
+      app:layout_constraintTop_toBottomOf="@+id/nodePositionValue" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeRotationValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toTopOf="@+id/nodeScaleLabel"
-      app:layout_constraintTop_toBottomOf="@+id/nodeRotationLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeRotationLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeScaleLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -172,14 +171,14 @@
       android:text="@string/entry_scale_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/nodeScaleValue"
-      app:layout_constraintTop_toBottomOf="@+id/nodeRotationValue" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeRotationValue" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/nodeScaleValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/nodeScaleLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/nodeScaleLabel" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
