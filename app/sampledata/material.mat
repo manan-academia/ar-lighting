@@ -1,0 +1,30 @@
+material {
+    name: "Custom material",
+    parameters: [
+        {
+            type: float3,
+            name: andyColor
+        },
+        {
+            type: float,
+            name: metallic
+        },
+        {
+            type: float,
+            name: reflectance
+        }
+    ],
+    requires: [
+        "position"
+    ],
+    shadingModel: lit,
+}
+
+fragment {
+    void material(inout MaterialInputs material) {
+        prepareMaterial(material);
+        material.baseColor.rgb = materialParams.andyColor.rgb;
+        material.metallic = materialParams.metallic;
+        material.reflectance = materialParams.reflectance;
+    }
+}

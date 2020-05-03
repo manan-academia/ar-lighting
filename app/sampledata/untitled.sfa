@@ -1,0 +1,36 @@
+{
+  materials: [
+    {
+      name: 'None',
+      parameters: [
+        {
+          andyColor: [
+            0.76,
+            0.23,
+            0.88,
+          ],
+        },
+        {
+          metallic: 1.0,
+        },
+        {
+          reflectance: 0,
+        },
+      ],
+      source: 'sampledata/material.mat',
+    },
+  ],
+  model: {
+    attributes: [
+      'Position',
+      'TexCoord',
+      'Orientation',
+    ],
+    collision: {},
+    file: 'sampledata/untitled.obj',
+    name: 'untitled',
+    recenter: 'root',
+    scale: 0.5,
+  },
+  version: '0.54:2',
+}

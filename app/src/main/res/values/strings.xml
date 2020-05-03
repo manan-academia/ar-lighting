@@ -1,0 +1,18 @@
+<resources>
+  <string name="app_name">AR lighting</string>
+  <string name="action_settings">Settings</string>
+
+  <string name="entry_color_label">Color</string>
+  <string name="entry_metallic_label">Metallic</string>
+  <string name="entry_roughness_label">Roughness</string>
+  <string name="entry_reflectance_label">Reflectance</string>
+  <string name="entry_cloud_anchor_id_label">ID</string>
+  <string name="entry_cloud_anchor_state_label">State</string>
+  <string name="entry_position_label">Position</string>
+  <string name="entry_rotation_label">Rotation</string>
+  <string name="entry_scale_label">Scale</string>
+  <string name="entry_scene_label">Scene</string>
+  <string name="entry_camera_label">Camera</string>
+
+  <string name="tracking_success">Tracking</string>
+</resources>
