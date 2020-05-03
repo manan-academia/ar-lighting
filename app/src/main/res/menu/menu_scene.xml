@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
   <group android:id="@+id/menu_group_scene">
-    <item
+    <!--<item
         android:id="@+id/menu_item_resolve_cloud_anchor"
-        android:title="@string/menu_item_resolve_cloud_anchor" />
+        android:title="@string/menu_item_resolve_cloud_anchor" />-->
     <item
         android:id="@+id/menu_item_clean_up_scene"
         android:title="@string/menu_item_clean_up_scene" />
@@ -24,7 +24,7 @@
             android:title="@string/menu_item_shadows"
             app:actionViewClass="android.view.View"
             app:showAsAction="collapseActionView" />
-        <item
+        <!--<item
             android:id="@+id/menu_item_plane_renderer"
             android:checkable="true"
             android:title="@string/menu_item_plane_renderer"
@@ -47,7 +47,7 @@
             android:checkable="true"
             android:title="@string/menu_item_point_cloud"
             app:actionViewClass="android.view.View"
-            app:showAsAction="collapseActionView" />
+            app:showAsAction="collapseActionView" />-->
       </menu>
     </item>
   </group>

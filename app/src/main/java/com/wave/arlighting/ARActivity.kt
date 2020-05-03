@@ -226,20 +226,20 @@ abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(c
           }
           return@setOnMenuItemClickListener false
         }
-        R.id.menu_item_mode_faces -> {
-          it.isChecked = true
-          //          if (this !is FaceActivity) {
-          //            startActivity(
-          //              Intent(
-          //                this,
-          //                FaceActivity::class.java
-          //              )
-          //            )
-          //            finish()
-          //          }
-          return@setOnMenuItemClickListener false
-        }
-        R.id.menu_item_mode_native_viewer -> {
+        //        R.id.menu_item_mode_faces -> {
+        //          it.isChecked = true
+        //          //          if (this !is FaceActivity) {
+        //          //            startActivity(
+        //          //              Intent(
+        //          //                this,
+        //          //                FaceActivity::class.java
+        //          //              )
+        //          //            )
+        //          //            finish()
+        //          //          }
+        //          return@setOnMenuItemClickListener false
+        //        }
+        /*R.id.menu_item_mode_native_viewer -> {
           it.isChecked = true
           arCoreViewerIntent.safeStartActivity(this)
         }
@@ -249,7 +249,7 @@ abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(c
             this,
             getString(R.string.scene_viewer_web).toUri()
           )
-        }
+        }*/
         else -> return@setOnMenuItemClickListener onClick(it)
       }
       return@setOnMenuItemClickListener true
@@ -257,13 +257,13 @@ abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(c
     anchor.setOnClickListener {
       popupMenu.menu.apply {
         findItem(R.id.menu_item_mode_scene).isChecked = false
-        findItem(R.id.menu_item_mode_faces).isChecked = false
+        //        findItem(R.id.menu_item_mode_faces).isChecked = false
         if (this@ARActivity is MainActivity) findItem(R.id.menu_item_mode_scene).isChecked =
           true
         //        if (this@ARActivity is FaceActivity) findItem(R.id.menu_item_mode_faces).isChecked =
         //          true
-        findItem(R.id.menu_item_mode_native_viewer).isEnabled =
-          arCoreViewerIntent.resolveActivity(packageManager) != null
+        /*findItem(R.id.menu_item_mode_native_viewer).isEnabled =
+          arCoreViewerIntent.resolveActivity(packageManager) !=*/ null
         findItem(R.id.menu_item_record).isEnabled = !videoRecorder.isRecording
         findItem(R.id.menu_item_quality_2160p).isEnabled =
           CamcorderProfile.hasProfile(CamcorderProfile.QUALITY_2160P)

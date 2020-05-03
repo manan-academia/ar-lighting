@@ -51,14 +51,13 @@
       android:padding="@dimen/material_unit_1"
       android:tint="@color/ic_model_tint"
       app:layout_constraintBottom_toBottomOf="@+id/modelCylinder"
-      app:layout_constraintEnd_toStartOf="@+id/modelView"
       app:layout_constraintHorizontal_bias="0.5"
       app:layout_constraintStart_toEndOf="@+id/modelCylinder"
       app:layout_constraintTop_toTopOf="@+id/modelCylinder"
       app:srcCompat="@drawable/ic_model_cube"
       tools:ignore="ContentDescription" />
 
-  <ImageView
+  <!--<ImageView
       android:id="@+id/modelView"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -71,7 +70,7 @@
       app:layout_constraintStart_toEndOf="@+id/modelCube"
       app:layout_constraintTop_toTopOf="@+id/modelCube"
       app:srcCompat="@drawable/ic_model_layout"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription" />-->
 
   <ImageView
       android:id="@+id/modelAndy"
@@ -80,15 +79,14 @@
       android:background="?selectableItemBackgroundBorderless"
       android:padding="@dimen/material_unit_1"
       android:tint="@color/ic_model_tint"
-      app:layout_constraintBottom_toBottomOf="@+id/modelView"
-      app:layout_constraintEnd_toStartOf="@+id/modelVideo"
+      app:layout_constraintBottom_toBottomOf="@+id/modelCube"
       app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/modelView"
-      app:layout_constraintTop_toTopOf="@+id/modelView"
+      app:layout_constraintStart_toEndOf="@+id/modelCube"
+      app:layout_constraintTop_toTopOf="@+id/modelCube"
       app:srcCompat="@drawable/ic_model_andy"
       tools:ignore="ContentDescription" />
 
-  <ImageView
+  <!--<ImageView
       android:id="@+id/modelDrawing"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -101,9 +99,9 @@
       app:layout_constraintStart_toEndOf="@+id/modelVideo"
       app:layout_constraintTop_toTopOf="@+id/modelAndy"
       app:srcCompat="@drawable/ic_model_drawing"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription" />-->
 
-  <ImageView
+  <!--<ImageView
       android:id="@+id/modelCloudAnchor"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -116,9 +114,9 @@
       app:layout_constraintStart_toEndOf="@+id/modelLink"
       app:layout_constraintTop_toTopOf="@+id/modelDrawing"
       app:srcCompat="@drawable/ic_model_cloud_anchor"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription" />-->
 
-  <ImageView
+  <!--<ImageView
       android:id="@+id/modelLink"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
@@ -131,32 +129,31 @@
       app:layout_constraintStart_toEndOf="@+id/modelDrawing"
       app:layout_constraintTop_toTopOf="@+id/modelCloudAnchor"
       app:srcCompat="@drawable/ic_model_link"
-      tools:ignore="ContentDescription" />
+      tools:ignore="ContentDescription" />-->
 
-  <ImageView
-      android:id="@+id/modelVideo"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:background="?selectableItemBackgroundBorderless"
-      android:padding="@dimen/material_unit_1"
-      android:tint="@color/ic_model_tint"
-      app:layout_constraintBottom_toBottomOf="@+id/modelAndy"
-      app:layout_constraintEnd_toStartOf="@+id/modelDrawing"
-      app:layout_constraintHorizontal_bias="0.5"
-      app:layout_constraintStart_toEndOf="@+id/modelAndy"
-      app:layout_constraintTop_toTopOf="@+id/modelAndy"
-      app:srcCompat="@drawable/ic_model_video"
-      tools:ignore="ContentDescription" />
+  <!-- <ImageView
+       android:id="@+id/modelVideo"
+       android:layout_width="wrap_content"
+       android:layout_height="match_parent"
+       android:background="?selectableItemBackgroundBorderless"
+       android:padding="@dimen/material_unit_1"
+       android:tint="@color/ic_model_tint"
+       app:layout_constraintBottom_toBottomOf="@+id/modelAndy"
+       app:layout_constraintEnd_toStartOf="@+id/modelDrawing"
+       app:layout_constraintHorizontal_bias="0.5"
+       app:layout_constraintStart_toEndOf="@+id/modelAndy"
+       app:layout_constraintTop_toTopOf="@+id/modelAndy"
+       app:srcCompat="@drawable/ic_model_video"
+       tools:ignore="ContentDescription" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/colorLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/material_unit_1"
       android:text="@string/entry_color_label"
       android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@+id/colorValue"
-      app:layout_constraintTop_toBottomOf="@+id/modelLink" />
+      app:layout_constraintBottom_toTopOf="@+id/colorValue" />
 
   <com.wave.arlighting.ColorSeekBar
       android:id="@+id/colorValue"
@@ -165,10 +162,9 @@
       android:layout_marginLeft="@dimen/material_unit_1"
       android:layout_marginRight="@dimen/material_unit_1"
       app:colorSeeds="@array/colors"
-      app:layout_constraintBottom_toTopOf="@+id/poseTranslationLabel"
-      app:layout_constraintTop_toBottomOf="@+id/colorLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/colorLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/poseTranslationLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -176,17 +172,17 @@
       android:text="@string/entry_position_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/poseTranslationValue"
-      app:layout_constraintTop_toBottomOf="@+id/colorValue" />
+      app:layout_constraintTop_toBottomOf="@+id/colorValue" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/poseTranslationValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toTopOf="@+id/poseRotationLabel"
-      app:layout_constraintTop_toBottomOf="@+id/poseTranslationLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/poseTranslationLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/poseRotationLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -194,17 +190,17 @@
       android:text="@string/entry_rotation_label"
       android:textStyle="bold"
       app:layout_constraintBottom_toTopOf="@+id/poseRotationValue"
-      app:layout_constraintTop_toBottomOf="@+id/poseTranslationValue" />
+      app:layout_constraintTop_toBottomOf="@+id/poseTranslationValue" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/poseRotationValue"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toTopOf="@+id/sceneLabel"
-      app:layout_constraintTop_toBottomOf="@+id/poseRotationLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/poseRotationLabel" />-->
 
-  <TextView
+  <!--<TextView
       android:id="@+id/sceneLabel"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -238,6 +234,6 @@
       android:layout_height="wrap_content"
       android:fontFamily="monospace"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/cameraLabel" />
+      app:layout_constraintTop_toBottomOf="@+id/cameraLabel" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
