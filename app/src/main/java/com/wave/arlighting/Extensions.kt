@@ -26,26 +26,9 @@ import com.google.ar.sceneform.rendering.Color
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
 val screenshotHandler =
-  HandlerThread("screenshot").also { it.start() }.let { Handler(it.looper) }
-
-fun Pose?.formatTranslation(context: Context): String = context.getString(
-  R.string.format_pose_translation,
-  this?.tx() ?: 0F,
-  this?.ty() ?: 0F,
-  this?.tz() ?: 0F
-)
-
-fun Pose?.formatRotation(context: Context): String = context.getString(
-  R.string.format_pose_rotation,
-  this?.qx() ?: 0F,
-  this?.qy() ?: 0F,
-  this?.qz() ?: 0F,
-  this?.qw() ?: 0F
-)
+  Handler(HandlerThread("screenshot").also { it.start() }.looper)
 
 fun Vector3.format(context: Context) = context.getString(
   R.string.format_vector3,
@@ -78,30 +61,6 @@ fun CameraConfig.format(context: Context) = context.getString(
     DO_NOT_USE, null -> false
   }
 )
-
-fun formatDistance(
-  context: Context,
-  pose: Pose?,
-  vector3: Vector3
-): String {
-  if (pose == null) return "?"
-  val x = pose.tx() - vector3.x
-  val y = pose.ty() - vector3.y
-  val z = pose.tz() - vector3.z
-  val distanceInMeters = sqrt((x * x + y * y + z * z).toDouble())
-  val distanceInCentimeters = (distanceInMeters * 100).roundToInt()
-  return if (distanceInCentimeters >= 100) {
-    context.getString(
-      R.string.format_distance_m,
-      distanceInCentimeters / 100F
-    )
-  } else {
-    context.getString(
-      R.string.format_distance_cm,
-      distanceInCentimeters
-    )
-  }
-}
 
 class SimpleSeekBarChangeListener(val block: (Int) -> Unit) : SeekBar.OnSeekBarChangeListener {
   override fun onStartTrackingTouch(seekBar: SeekBar?) {}
@@ -139,9 +98,6 @@ fun cacheFile(
   context.cacheDir,
   filename() + extension
 )
-
-inline fun <reified T> ArSceneView.findNode(): T? =
-  scene.findInHierarchy { it is T } as T?
 
 fun ArSceneView.screenshot() {
   Toast.makeText(
@@ -227,19 +183,6 @@ fun viewOrShare(
 
 fun @receiver:ColorInt Int.toArColor(): Color = Color(this)
 
-fun Pose.translation() = Vector3(
-  tx(),
-  ty(),
-  tz()
-)
-
-fun Pose.rotation() = Quaternion(
-  qx(),
-  qy(),
-  qz(),
-  qw()
-)
-
 fun UnavailableException?.message(): Int {
   return when (this) {
     is UnavailableArcoreNotInstalledException -> R.string.exception_arcore_not_installed
@@ -272,34 +215,4 @@ fun BottomSheetBehavior<out View>.update(
   }
 }
 
-fun createArCoreViewerIntent(
-  model: Uri,
-  link: String? = null,
-  title: String? = null
-): Intent {
-  val builder = model.buildUpon()
-  if (!link.isNullOrBlank()) builder.appendQueryParameter(
-    "link",
-    link
-  )
-  if (!title.isNullOrBlank()) builder.appendQueryParameter(
-    "title",
-    title
-  )
-  // com.google.ar.core/.viewer.IntentForwardActivity
-  // com.google.android.googlequicksearchbox/.ViewerLauncher
-  // com.google.android.googlequicksearchbox/com.google.ar.core.viewer.ViewerActivity
-  return Intent(
-    Intent.ACTION_VIEW,
-    builder.build()
-  ).apply { `package` = "com.google.ar.core" }
-}
 
-fun Intent?.safeStartActivity(context: Context) {
-  if (this == null) return
-  if (resolveActivity(context.packageManager) == null) return
-  try {
-    context.startActivity(this)
-  } catch (e: Exception) {
-  }
-}

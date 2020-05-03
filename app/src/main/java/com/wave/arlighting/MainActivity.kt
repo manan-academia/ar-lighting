@@ -353,15 +353,7 @@ class MainActivity : ARActivity(R.layout.activity_main) {
       node != coordinator.selectedNode || node != coordinator.focusedNode || nodeBottomSheet.behavior().state == STATE_HIDDEN -> Unit
       else -> {
         nodeStatus.setImageResource(node.statusIcon())
-//        nodeDistance.text = formatDistance(
-//          this,
-//          arSceneView.arFrame?.camera?.pose,
-//          node.worldPosition
-//        )
         nodeDelete.isEnabled = !node.isTransforming
-        /*nodePositionValue.text = node.worldPosition.format(this)
-        nodeRotationValue.text = node.worldRotation.format(this)
-        nodeScaleValue.text = node.worldScale.format(this)*/
       }
     }
   }

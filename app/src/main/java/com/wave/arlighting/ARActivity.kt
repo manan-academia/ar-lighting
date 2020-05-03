@@ -23,9 +23,7 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.PopupMenu
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.app.ActivityCompat
-import androidx.core.net.toUri
 import androidx.core.view.MenuCompat
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.Config
@@ -33,7 +31,6 @@ import com.google.ar.core.Session
 import com.google.ar.core.exceptions.CameraNotAvailableException
 import com.google.ar.core.exceptions.UnavailableException
 import com.google.ar.sceneform.ArSceneView
-import kotlinx.android.synthetic.main.activity_main.*
 
 abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(contentLayoutId) {
   private companion object {
@@ -43,13 +40,6 @@ abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(c
   private var sessionInitializationFailed: Boolean = false
   private var installRequested: Boolean = false
   private lateinit var videoRecorder: VideoRecorder
-  private val arCoreViewerIntent by lazy {
-    createArCoreViewerIntent(
-      model = getString(R.string.scene_viewer_native_data).toUri(),
-      link = getString(R.string.scene_viewer_native_link),
-      title = null
-    )
-  }
 
   override fun onPostCreate(savedInstanceState: Bundle?) {
     super.onPostCreate(savedInstanceState)
@@ -226,30 +216,6 @@ abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(c
           }
           return@setOnMenuItemClickListener false
         }
-        //        R.id.menu_item_mode_faces -> {
-        //          it.isChecked = true
-        //          //          if (this !is FaceActivity) {
-        //          //            startActivity(
-        //          //              Intent(
-        //          //                this,
-        //          //                FaceActivity::class.java
-        //          //              )
-        //          //            )
-        //          //            finish()
-        //          //          }
-        //          return@setOnMenuItemClickListener false
-        //        }
-        /*R.id.menu_item_mode_native_viewer -> {
-          it.isChecked = true
-          arCoreViewerIntent.safeStartActivity(this)
-        }
-        R.id.menu_item_mode_web_viewer -> {
-          it.isChecked = true
-          CustomTabsIntent.Builder().build().launchUrl(
-            this,
-            getString(R.string.scene_viewer_web).toUri()
-          )
-        }*/
         else -> return@setOnMenuItemClickListener onClick(it)
       }
       return@setOnMenuItemClickListener true
@@ -257,13 +223,8 @@ abstract class ARActivity(@LayoutRes contentLayoutId: Int) : AppCompatActivity(c
     anchor.setOnClickListener {
       popupMenu.menu.apply {
         findItem(R.id.menu_item_mode_scene).isChecked = false
-        //        findItem(R.id.menu_item_mode_faces).isChecked = false
         if (this@ARActivity is MainActivity) findItem(R.id.menu_item_mode_scene).isChecked =
           true
-        //        if (this@ARActivity is FaceActivity) findItem(R.id.menu_item_mode_faces).isChecked =
-        //          true
-        /*findItem(R.id.menu_item_mode_native_viewer).isEnabled =
-          arCoreViewerIntent.resolveActivity(packageManager) !=*/ null
         findItem(R.id.menu_item_record).isEnabled = !videoRecorder.isRecording
         findItem(R.id.menu_item_quality_2160p).isEnabled =
           CamcorderProfile.hasProfile(CamcorderProfile.QUALITY_2160P)
